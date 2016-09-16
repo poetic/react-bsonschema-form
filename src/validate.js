@@ -1,4 +1,4 @@
-import { validate as jsonValidate } from "jsonschema";
+import { validate as bsonValidate } from "bsonschema";
 
 import { isObject, mergeObjects } from "./utils";
 
@@ -115,7 +115,7 @@ function unwrapErrorHandler(errorHandler) {
  * will be used to add custom validation errors for each field.
  */
 export default function validateFormData(formData, schema, customValidate) {
-  const {errors} = jsonValidate(formData, schema);
+  const {errors} = bsonValidate(formData, schema);
   const errorSchema = toErrorSchema(errors);
 
   if (typeof customValidate !== "function") {

@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "jsonschema": "^1.0.2",
+    "bsonschema": "git://github.com/poetic/bsonschema.git#02b2e44",
     "setimmediate": "^1.0.4"
   },
   "devDependencies": {
