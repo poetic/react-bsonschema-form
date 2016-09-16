@@ -71,7 +71,7 @@ export default class Form extends Component {
     const {status, errors} = this.state;
     const {showErrorList} = this.props;
 
-    if (status !== "editing" && errors.length && showErrorList != false) {
+    if (errors.length && showErrorList != false) {
       return <ErrorList errors={errors} />;
     }
     return null;
@@ -79,7 +79,7 @@ export default class Form extends Component {
 
   onChange = (formData, options={validate: false}) => {
     const mustValidate = !this.props.noValidate && (this.props.liveValidate || options.validate);
-    let state = {status: "editing", formData};
+    let state = {formData};
     if (mustValidate) {
       const {errors, errorSchema} = this.validate(formData);
       state = {...state, errors, errorSchema};
