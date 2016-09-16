@@ -29,7 +29,7 @@
     "react": "^15.0.0"
   },
   "dependencies": {
-    "bsonschema": "git://github.com/poetic/bsonschema.git#02b2e44",
+    "bsonschema": "1.1.1",
     "moment": "^2.15.0",
     "react-datetime": "^2.6.0",
     "setimmediate": "^1.0.4"
