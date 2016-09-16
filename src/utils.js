@@ -186,9 +186,12 @@ export function getDefaultFormState(_schema, formData, definitions={}) {
   if (typeof(formData) === "undefined") { // No form data? Use schema defaults.
     return defaults;
   }
-  if (isObject(formData)) { // Override schema defaults with form data.
-    return mergeObjects(defaults, formData);
-  }
+  // NOTE: for bson, there is some premitive that are objects
+  // For some usecase we do not need default.
+  // We will deal with this later.
+  // if (isObject(formData)) { // Override schema defaults with form data.
+  //   return mergeObjects(defaults, formData);
+  // }
   return formData || defaults;
 }
 
