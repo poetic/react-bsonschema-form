@@ -235,6 +235,13 @@ export function asNumber(value) {
   return valid ? n : value;
 }
 
+export function isInteger(value) {
+  // http://stackoverflow.com/questions/14636536/how-to-check-if-a-variable-is-an-integer-in-javascript
+  return !isNaN(value) &&
+    parseInt(Number(value)) == value &&
+    !isNaN(parseInt(value, 10));
+}
+
 export function orderProperties(properties, order) {
   if (!Array.isArray(order)) {
     return properties;

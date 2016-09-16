@@ -1,3 +1,4 @@
+import bson from 'bson';
 import React, { PropTypes } from "react";
 
 import { asNumber } from "../../utils";

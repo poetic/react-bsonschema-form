@@ -6,6 +6,9 @@ import {
   getDefaultRegistry,
   isFilesArray
 } from "../../utils";
+import IntField from './IntField';
+import LongField from './LongField';
+import DoubleField from './DoubleField';
 import ArrayField from "./ArrayField";
 import BooleanField from "./BooleanField";
 import NumberField from "./NumberField";
@@ -25,10 +28,10 @@ const COMPONENT_TYPES = {
   string:  StringField,
   // bson specific fields
   bool: BooleanField,
-  int: NumberField,
-  long: NumberField,
+  int: IntField,
+  long: LongField,
   date: DateField,
-  double: NumberField,
+  double: DoubleField,
 };
 
 function getFieldComponent(schema, uiSchema, fields) {

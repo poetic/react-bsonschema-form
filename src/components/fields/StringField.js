@@ -62,6 +62,7 @@ if (process.env.NODE_ENV !== "production") {
     formData: PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.number,
+      React.PropTypes.object,
     ]),
     registry: PropTypes.shape({
       widgets: PropTypes.objectOf(PropTypes.oneOfType([
