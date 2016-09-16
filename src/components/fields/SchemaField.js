@@ -11,6 +11,7 @@ import BooleanField from "./BooleanField";
 import NumberField from "./NumberField";
 import ObjectField from "./ObjectField";
 import StringField from "./StringField";
+import DateField from './DateField';
 import UnsupportedField from "./UnsupportedField";
 
 
@@ -26,6 +27,8 @@ const COMPONENT_TYPES = {
   bool: BooleanField,
   int: NumberField,
   long: NumberField,
+  date: DateField,
+  double: NumberField,
 };
 
 function getFieldComponent(schema, uiSchema, fields) {
