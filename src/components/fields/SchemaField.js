@@ -136,7 +136,15 @@ DefaultTemplate.defaultProps = {
 };
 
 function SchemaField(props) {
-  const {uiSchema, errorSchema, idSchema, name, required, registry} = props;
+  const {
+    pathSegments,
+    uiSchema,
+    errorSchema,
+    idSchema,
+    name,
+    required,
+    registry
+  } = props;
   const {definitions, fields, formContext, FieldTemplate = DefaultTemplate} = registry;
   const schema = retrieveSchema(props.schema, definitions);
   const FieldComponent = getFieldComponent(schema, uiSchema, fields);
@@ -228,6 +236,7 @@ SchemaField.defaultProps = {
 
 if (process.env.NODE_ENV !== "production") {
   SchemaField.propTypes = {
+    pathSegments: PropTypes.array.isRequired,
     schema: PropTypes.object.isRequired,
     uiSchema: PropTypes.object,
     idSchema: PropTypes.object,

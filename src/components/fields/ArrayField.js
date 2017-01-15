@@ -428,6 +428,7 @@ function AddButton({onClick, disabled}) {
 
 if (process.env.NODE_ENV !== "production") {
   ArrayField.propTypes = {
+    pathSegments: PropTypes.array.isRequired,
     schema: PropTypes.object.isRequired,
     uiSchema: PropTypes.shape({
       "ui:options": PropTypes.shape({

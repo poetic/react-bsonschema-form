@@ -85,6 +85,7 @@ class ObjectField extends Component {
 
   render() {
     const {
+      pathSegments,
       uiSchema,
       errorSchema,
       idSchema,
@@ -128,6 +129,7 @@ class ObjectField extends Component {
         orderedProperties.map((name, index) => {
           return (
             <SchemaField key={index}
+              pathSegments={pathSegments.concat(name)}
               name={name}
               required={this.isRequired(name)}
               schema={schema.properties[name]}
@@ -148,6 +150,7 @@ class ObjectField extends Component {
 
 if (process.env.NODE_ENV !== "production") {
   ObjectField.propTypes = {
+    pathSegments: PropTypes.array.isRequired,
     schema: PropTypes.object.isRequired,
     uiSchema: PropTypes.object,
     errorSchema: PropTypes.object,

@@ -158,6 +158,7 @@ export default class Form extends Component {
         onSubmit={this.onSubmit}>
         {this.renderErrors()}
         <_SchemaField
+          pathSegments={[]}
           schema={schema}
           uiSchema={uiSchema}
           errorSchema={errorSchema}
