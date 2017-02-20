@@ -23,7 +23,7 @@ function round (value) {
 function DoubleField(props) {
   return (
     <StringField {...props}
-      onChange={(value) => props.onChange(convert(value))} 
+      onChange={(value) => props.onChange(convert(value))}
       onBlur={(event) => props.onChange(convert(round(event.target.value)))} />
   );
 }

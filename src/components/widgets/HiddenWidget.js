@@ -11,9 +11,10 @@ if (process.env.NODE_ENV !== "production") {
   HiddenWidget.propTypes = {
     id: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number,
-      React.PropTypes.bool,
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+      PropTypes.object,
     ]),
   };
 }
