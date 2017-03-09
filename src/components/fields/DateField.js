@@ -2,7 +2,6 @@ import React, { PropTypes } from "react";
 import Datetime from 'react-datetime';
 import moment from 'moment';
 
-import BaseInput from "../widgets/BaseInput";
 import 'react-datetime/css/react-datetime.css';
 
 function cleanValue (value) {
@@ -27,6 +26,7 @@ function DateField(props) {
     return (
       <Datetime
         {...props}
+        timeFormat={false}
         value={formData}
         onChange={(value) => onChange(cleanValue(value))}
       />
