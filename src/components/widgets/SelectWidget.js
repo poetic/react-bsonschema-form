@@ -36,7 +36,7 @@ function SelectWidget({
     <select
       id={id}
       multiple={multiple}
-      className={className},
+      className={className}
       value={value}
       required={required}
       disabled={disabled}
