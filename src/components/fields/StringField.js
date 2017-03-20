@@ -11,6 +11,7 @@ import {
 
 function StringField(props) {
   const {
+    className,
     schema,
     name,
     uiSchema,
@@ -38,6 +39,7 @@ function StringField(props) {
   return <Widget
     {...inputProps}
     options={{...options, enumOptions}}
+    className={className}
     schema={schema}
     id={idSchema && idSchema.$id}
     label={title === undefined ? name : title}

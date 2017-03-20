@@ -32,6 +32,7 @@ class BaseInput extends React.Component {
       schema,   // eslint-disable-line
       formContext,  // eslint-disable-line
       registry, // eslint-disable-line
+      className,
       ...inputProps
     } = this.props;
     const {delayedValue} = this.state;
@@ -39,7 +40,7 @@ class BaseInput extends React.Component {
     return (
       <input
       {...inputProps}
-      className="form-control"
+      className={`form-control ${className}`}
       readOnly={readonly}
       autoFocus={autofocus}
       value={typeof delayedValue === "undefined" ? "" : delayedValue}

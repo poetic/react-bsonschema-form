@@ -19,6 +19,7 @@ function processValue({type, items}, value) {
 }
 
 function SelectWidget({
+  className,
   schema,
   id,
   options,
@@ -35,7 +36,7 @@ function SelectWidget({
     <select
       id={id}
       multiple={multiple}
-      className="form-control"
+      className={`form-control ${className}`}
       value={value}
       required={required}
       disabled={disabled}
