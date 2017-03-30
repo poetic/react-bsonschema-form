@@ -1,30 +1,18 @@
 import React, {PropTypes} from "react";
 import _ from "lodash";
 
-const debouncedHandleFormOnChange = _.debounce((self, value) => {
-  self.props.onChange(value);
-}, 500);
+function trim (value) {
+  return typeof value === 'string' ? value.trim() : value
+}
 
 class BaseInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      delayedValue: this.props.value,
-    };
+    this.state = { value: this.props.value };
   }
 
-  componentWillReceiveProps(nextProps){
-    const {value} = nextProps;
-    this.setState({delayedValue: value});
-  }
-
-  handleOnChange(e) {
-    let value = e.target.value;
-    if (typeof value === 'string') {
-      value = value.trim()
-    }
-    this.setState({delayedValue: value});
-    debouncedHandleFormOnChange(this, value);
+  componentWillReceiveProps({ value }){
+    this.setState({ value })
   }
 
   render() {
@@ -38,7 +26,7 @@ class BaseInput extends React.Component {
       className='form-control',
       ...inputProps
     } = this.props;
-    const {delayedValue} = this.state;
+    const {value} = this.state;
 
     return (
       <input
@@ -46,8 +34,9 @@ class BaseInput extends React.Component {
       className={className}
       readOnly={readonly}
       autoFocus={autofocus}
-      value={typeof delayedValue === "undefined" ? "" : delayedValue}
-      onChange={(e) => this.handleOnChange(e)}/>
+      value={typeof value === "undefined" ? "" : value}
+      onBlur={() => this.props.onChange(trim(value))}
+      onChange={({ target: { value } }) => this.setState({value})}/>
     );
   }
 }
