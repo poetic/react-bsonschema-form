@@ -147,6 +147,7 @@ export default class Form extends Component {
 
     return (
       <form className={className ? className : "rjsf"}
+        noValidate
         id={id}
         name={name}
         method={method}

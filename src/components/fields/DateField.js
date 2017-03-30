@@ -5,12 +5,10 @@ import moment from 'moment';
 import 'react-datetime/css/react-datetime.css';
 
 function cleanValue (value) {
-  if (!value) {
-    return undefined;
-  } else if (typeof value.toDate === 'function') {
+  if (value && (typeof value.toDate === 'function')) {
     return value.toDate();
   } else {
-    return value;
+    return undefined;
   }
 }
 

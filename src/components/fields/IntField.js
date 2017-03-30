@@ -7,7 +7,7 @@ import StringField from "./StringField";
 
 function convert (value) {
   if (!isInteger(value)) {
-    return value;
+    return undefined;
   }
 
   const number = Number(value);

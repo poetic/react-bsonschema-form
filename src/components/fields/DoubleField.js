@@ -9,7 +9,7 @@ const Double = bson.Double;
 function convert (value) {
   const notNumber = value === '' || isNaN(value);
   if (notNumber) {
-    return value;
+    return undefined;
   }
 
   // NOTE: we may need to validate range for double
