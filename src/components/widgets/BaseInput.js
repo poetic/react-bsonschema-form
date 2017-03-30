@@ -19,7 +19,10 @@ class BaseInput extends React.Component {
   }
 
   handleOnChange(e) {
-    const {value} = e.target;
+    let value = e.target.value;
+    if (typeof value === 'string') {
+      value = value.trim()
+    }
     this.setState({delayedValue: value});
     debouncedHandleFormOnChange(this, value);
   }
