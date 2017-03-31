@@ -182,7 +182,7 @@ function SchemaField(props) {
   const description = props.schema.description || schema.description;
   const errors = __errors;
   const help = uiSchema["ui:help"];
-  const hidden = uiSchema["ui:widget"] === "hidden";
+  const hidden = uiSchema["ui:widget"] === "hidden" || (uiSchema["ui:options"] && uiSchema["ui:options"].hidden);
   const classNames = [
     "form-group",
     "field",
