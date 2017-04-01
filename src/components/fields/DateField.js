@@ -16,10 +16,15 @@ function stringifyDate ({ date, utc }) {
 }
 
 function cleanValue (value) {
-  if (value && (typeof value.toDate === 'function')) {
+  // empty string, undefind, null ...
+  if (!value) {
+    return undefined
+  } else if (typeof value.toDate === 'function') {
     return value.toDate();
   } else {
-    return undefined;
+    // the value may be string, we will let the json schema form to tell
+    // user the type is not date
+    return value;
   }
 }
 
@@ -36,9 +41,10 @@ function DateField(props) {
   } else {
     return (
       <Datetime
-        {...props}
+        inputProps={{ placeholder: 'mm/dd/yyyy' }}
         utc={utc}
         input
+        closeOnSelect
         timeFormat={false}
         value={formData}
         onChange={(value) => onChange(cleanValue(value))}
