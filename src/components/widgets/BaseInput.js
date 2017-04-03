@@ -27,6 +27,11 @@ class BaseInput extends React.Component {
     } = this.props;
     const {value} = this.state;
 
+    // NOTE
+    // Here we use onBlur to trigger onChange.
+    // This is for performance purposes.
+    // Previously we are using debounce and it creates strange behavior.
+
     return (
       <input
       {...inputProps}

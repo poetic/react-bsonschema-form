@@ -23,7 +23,6 @@ function StringField(props) {
     autofocus,
     registry,
     onChange,
-    onBlur
   } = props;
   const {title, format} = schema;
   const {widgets, formContext} = registry;
@@ -32,9 +31,6 @@ function StringField(props) {
   const {widget=defaultWidget, placeholder="", ...options} = getUiOptions(uiSchema);
   const Widget = getWidget(schema, widget, widgets);
   const inputProps = {};
-  if (onBlur) {
-    inputProps.onBlur = onBlur;
-  }
 
   return <Widget
     {...inputProps}
@@ -62,7 +58,6 @@ if (process.env.NODE_ENV !== "production") {
     uiSchema: PropTypes.object.isRequired,
     idSchema: PropTypes.object,
     onChange: PropTypes.func.isRequired,
-    onBlur: PropTypes.func,
     formData: PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.number,
