@@ -1,11 +1,23 @@
 import React, { PropTypes } from "react";
 import StringField from "./StringField";
 
+function toString (value) {
+  if (value == null) {
+    return undefined
+  } else if (value.toJSON) {
+    return value.toJSON().toString()
+  } else if (value.toString) {
+    return value.toString()
+  } else {
+    throw new Error(`The value can not be stringified: ${value}`)
+  }
+}
+
 function BsonNumberField ({ formData, onChange, stringToBsonNumber, ...other }) {
   // NOTE: formData is string, so when it's false, it must be empty string or undefined
   return (
     <StringField
-      formData={formData && formData.toJSON().toString()}
+      formData={toString(formData)}
       onChange={(value) => onChange(stringToBsonNumber(value))}
       {...other}
     />
