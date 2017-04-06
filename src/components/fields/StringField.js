@@ -8,6 +8,16 @@ import {
   getDefaultRegistry
 } from "../../utils";
 
+function emptyToUndefined (value) {
+  if (value == null) {
+    return undefined;
+  } else if (typeof value === 'string') {
+    return value.length > 0 ? value : undefined;
+  } else {
+    // value can be other types, say long, int, double
+    return value;
+  }
+}
 
 function StringField(props) {
   const {
@@ -40,9 +50,7 @@ function StringField(props) {
     id={idSchema && idSchema.$id}
     label={title === undefined ? name : title}
     value={defaultFieldValue(formData, schema)}
-    onChange={(value) => {
-      onChange((typeof value === 'string' && value.length > 0) ? value : undefined);
-    }}
+    onChange={(value) => onChange(emptyToUndefined(value))}
     required={required}
     disabled={disabled}
     readonly={readonly}

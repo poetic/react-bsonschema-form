@@ -15,10 +15,13 @@ function toString (value) {
 
 function BsonNumberField ({ formData, onChange, stringToBsonNumber, ...other }) {
   // NOTE: formData is string, so when it's false, it must be empty string or undefined
+  const parse = (value) => {
+    return typeof value === 'string' ? stringToBsonNumber(value) : value
+  }
   return (
     <StringField
       formData={toString(formData)}
-      onChange={(value) => onChange(stringToBsonNumber(value))}
+      onChange={(value) => onChange(parse(value))}
       {...other}
     />
   );
