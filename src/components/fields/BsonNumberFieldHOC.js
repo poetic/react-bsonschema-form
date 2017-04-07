@@ -14,9 +14,10 @@ function toString (value) {
 }
 
 function BsonNumberField ({ formData, onChange, stringToBsonNumber, ...other }) {
+  const options = other.uiSchema && other.uiSchema['ui:options']
   // NOTE: formData is string, so when it's false, it must be empty string or undefined
   const parse = (value) => {
-    return typeof value === 'string' ? stringToBsonNumber(value) : value
+    return typeof value === 'string' ? stringToBsonNumber(value, options) : value
   }
   return (
     <StringField
