@@ -7,7 +7,7 @@ function stringToBsonNumber (string) {
   if (isNaN(float)) {
     return undefined;
   } else {
-    return new Double(parseFloat(float.toFixed(2)));
+    return float;
   }
 }
 
