@@ -32,6 +32,7 @@ function SelectWidget({
   onChange
 }) {
   const {enumOptions} = options;
+
   return (
     <select
       id={id}
@@ -51,9 +52,10 @@ function SelectWidget({
           newValue = event.target.value;
         }
         onChange(processValue(schema, newValue));
-      }}>{
-      enumOptions.map(({value, label}, i) => {
-        return <option key={i} value={value}>{label}</option>;
+      }}>
+      {!multiple && !schema.default && <option value="" />}
+      {enumOptions.map(({value, label}, i) => {
+         return <option key={i} value={value}>{label}</option>;
       })
     }</select>
   );
