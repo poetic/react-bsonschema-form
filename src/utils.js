@@ -1,5 +1,6 @@
 import React from "react";
 import "setimmediate";
+import { Int32, Long, Double } from 'bson';
 
 
 const widgetMap = {
@@ -176,7 +177,19 @@ function computeDefaults(schema, parentDefaults, definitions={}) {
     defaults = schema.default;
   } else if ("enum" in schema && Array.isArray(schema.enum)) {
     // For enum with no defined default, select the first entry.
-    defaults = schema.enum[0];
+    switch(schema.type) {
+      case 'int':
+        defaults = new Int32(schema.enum[0]);
+        break;
+      case 'long':
+        defaults = new Long(schema.enum[0]);
+        break;
+      case 'double':
+        defaults = new Double(schema.enum[0]);
+        break;
+      default:
+        defaults = schema.enum[0];
+    }
   } else if ("$ref" in schema) {
     // Use referenced schema defaults for this node.
     const refSchema = findSchemaDefinition(schema.$ref, definitions);
