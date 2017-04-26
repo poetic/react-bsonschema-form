@@ -53,7 +53,6 @@ function SelectWidget({
         }
         onChange(processValue(schema, newValue));
       }}>
-      {!multiple && !schema.default && <option value="" />}
       {enumOptions.map(({value, label}, i) => {
          return <option key={i} value={value}>{label}</option>;
       })
