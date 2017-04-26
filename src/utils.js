@@ -258,11 +258,11 @@ function shouldSkip (v) {
 
 export function mergeObjects(obj1, obj2, concatArrays = false) {
   // NOTE: do not merge bson object types
-  if (shouldSkip(obj1)) {
-    return obj1;
-  }
   if (shouldSkip(obj2)) {
     return obj2;
+  }
+  if (shouldSkip(obj1)) {
+    return obj1;
   }
   // Recursively merge deeply nested objects.
   var acc = Object.assign({}, obj1); // Prevent mutation of source object.
