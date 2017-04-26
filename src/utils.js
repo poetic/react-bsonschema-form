@@ -1,5 +1,6 @@
 import React from "react";
 import "setimmediate";
+import { Int32, Long, Double } from 'bson';
 
 
 const widgetMap = {
@@ -174,6 +175,21 @@ function computeDefaults(schema, parentDefaults, definitions={}) {
   } else if ("default" in schema) {
     // Use schema defaults for this node.
     defaults = schema.default;
+  } else if ("enum" in schema && Array.isArray(schema.enum)) {
+    // For enum with no defined default, select the first entry.
+    switch(schema.type) {
+      case 'int':
+        defaults = new Int32(schema.enum[0]);
+        break;
+      case 'long':
+        defaults = new Long(schema.enum[0]);
+        break;
+      case 'double':
+        defaults = new Double(schema.enum[0]);
+        break;
+      default:
+        defaults = schema.enum[0];
+    }
   } else if ("$ref" in schema) {
     // Use referenced schema defaults for this node.
     const refSchema = findSchemaDefinition(schema.$ref, definitions);
@@ -242,11 +258,11 @@ function shouldSkip (v) {
 
 export function mergeObjects(obj1, obj2, concatArrays = false) {
   // NOTE: do not merge bson object types
-  if (shouldSkip(obj1)) {
-    return obj1;
-  }
   if (shouldSkip(obj2)) {
     return obj2;
+  }
+  if (shouldSkip(obj1)) {
+    return obj1;
   }
   // Recursively merge deeply nested objects.
   var acc = Object.assign({}, obj1); // Prevent mutation of source object.
