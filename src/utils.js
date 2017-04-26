@@ -168,27 +168,18 @@ export function getWidget(schema, widget, registeredWidgets={}) {
 function computeDefaults(schema, parentDefaults, definitions={}) {
   // Compute the defaults recursively: give highest priority to deepest nodes.
   let defaults = parentDefaults;
+
   if (isObject(defaults) && isObject(schema.default)) {
     // For object defaults, only override parent defaults that are defined in
     // schema.default.
     defaults = mergeObjects(defaults, schema.default);
   } else if ("default" in schema) {
-    // Use schema defaults for this node.
-    defaults = schema.default;
-  } else if ("enum" in schema && Array.isArray(schema.enum)) {
-    // For enum with no defined default, select the first entry.
-    switch(schema.type) {
-      case 'int':
-        defaults = new Int32(schema.enum[0]);
-        break;
-      case 'long':
-        defaults = new Long(schema.enum[0]);
-        break;
-      case 'double':
-        defaults = new Double(schema.enum[0]);
-        break;
-      default:
-        defaults = schema.enum[0];
+    const schemaDefault = emptyToUndefined(schema.default);
+
+    if (schemaDefault && "enum" in schema) {
+      defaults = getEnumDefault(schema);
+    } else {
+      defaults = schemaDefault;
     }
   } else if ("$ref" in schema) {
     // Use referenced schema defaults for this node.
@@ -197,10 +188,7 @@ function computeDefaults(schema, parentDefaults, definitions={}) {
   } else if (isFixedItems(schema)) {
     defaults = schema.items.map(itemSchema => computeDefaults(itemSchema, undefined, definitions));
   }
-  // Not defaults defined for this node, fallback to generic typed ones.
-  if (typeof(defaults) === "undefined") {
-    defaults = schema.default;
-  }
+
   // We need to recur for object schema inner default values.
   if (schema.type === "object") {
     return Object.keys(schema.properties).reduce((acc, key) => {
@@ -606,4 +594,39 @@ export function rangeSpec(schema) {
     spec.max = schema.maximum;
   }
   return spec;
+}
+
+export function getEnumDefault(schema) {
+  const indexOfDefault = schema.enum.indexOf(schema.default);
+
+  if (indexOfDefault === -1) {
+    return undefined;
+  }
+
+  const schemaDefault = schema.enum[indexOfDefault];
+
+  switch(schema.type) {
+    case 'int':
+      return new Int32(schemaDefault);
+      break;
+    case 'long':
+      return new Long(schemaDefault);
+      break;
+    case 'double':
+      return new Double(schemaDefault);
+      break;
+    default:
+      return emptyToUndefined(schemaDefault);
+  }
+}
+
+export function emptyToUndefined (value) {
+  if (value === null) {
+    return undefined;
+  } else if (typeof value === 'string') {
+    return value.length > 0 ? value : undefined;
+  } else {
+    // value can be other types, say long, int, double
+    return value;
+  }
 }
