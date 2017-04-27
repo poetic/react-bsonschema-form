@@ -18,6 +18,10 @@ function processValue({type, items}, value) {
   return value;
 }
 
+function renderEmptyOption() {
+  return <option value="" />;
+}
+
 function SelectWidget({
   className='form-control',
   schema,
@@ -32,6 +36,11 @@ function SelectWidget({
   onChange
 }) {
   const {enumOptions} = options;
+
+  const emptyOption = !multiple && (!schema.default || schema.default.length === 0)
+    ? renderEmptyOption()
+    : null;
+
   return (
     <select
       id={id}
@@ -51,9 +60,10 @@ function SelectWidget({
           newValue = event.target.value;
         }
         onChange(processValue(schema, newValue));
-      }}>{
-      enumOptions.map(({value, label}, i) => {
-        return <option key={i} value={value}>{label}</option>;
+      }}>
+      {emptyOption}
+      {enumOptions.map(({value, label}, i) => {
+         return <option key={i} value={value}>{label}</option>;
       })
     }</select>
   );
