@@ -30,6 +30,7 @@ const widgetMap = {
     "alt-datetime": "AltDateTimeWidget",
     color: "ColorWidget",
     file: "FileWidget",
+    html: 'HTMLWidget',
   },
   number: {
     text: "TextWidget",
