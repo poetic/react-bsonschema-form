@@ -31,9 +31,11 @@ function cleanValue (value) {
 function DateField(props) {
   const {onChange, formData, readonly, disabled, uiSchema} = props;
   const {StringField} = props.registry.fields;
-  const utcIsSpecified = uiSchema['ui:options']
-    && uiSchema['ui:options'].hasOwnProperty('utc');
-  const utc = !utcIsSpecified || uiSchema['ui:options'].utc;
+
+  const uiOptions = uiSchema['ui:options'] || {};
+  const utc = !uiOptions.hasOwnProperty('utc') || uiOptions.utc;
+  const dateFormat = uiOptions.dateFormat || true;
+  const placeholder = uiOptions.placeholder || 'mm/dd/yyyy';
 
   if (readonly || disabled) {
     const formDataString = stringifyDate({ date: formData, utc })
@@ -43,10 +45,11 @@ function DateField(props) {
   } else {
     return (
       <Datetime
-        inputProps={{ placeholder: 'mm/dd/yyyy' }}
+        inputProps={{ placeholder }}
         utc={utc}
         input
         closeOnSelect
+        dateFormat={dateFormat}
         timeFormat={false}
         value={formData}
         onChange={(value) => onChange(cleanValue(value))}
